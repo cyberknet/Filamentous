@@ -1,0 +1,81 @@
+﻿@page "/brands"
+@using Filamentous.Web.Services
+@using JumpStart.Services
+@using Microsoft.AspNetCore.Authorization
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+@inject IBrandService brandService
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+@attribute [Authorize]
+<PageTitle>Brands</PageTitle>
+
+<h1>Brands</h1>
+
+@if (brands == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
+    <FluentDataGrid Id="brandgrid" Items="@brands" GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem="Brand">
+        <PropertyColumn Title="Name" Property="@(c => c.Name)" Align="Align.Start"/>
+        <PropertyColumn Title="Website" Property="@(c => c.Url)" Align="Align.Start"/>
+        <TemplateColumn Title="Actions" Align="@Align.End">
+            <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" @onclick="@(() => Edit(context))" />
+            <FluentButton aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" @onclick="@(() => Delete(context))" />
+        </TemplateColumn>
+    </FluentDataGrid>
+}
+
+@code {
+    private IQueryable<Brand>? brands;
+
+    string message = string.Empty;
+    private int currentCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var result = await brandService.ListAsync();
+            brands = result.Data.AsQueryable();
+        }
+        catch(Exception ex)
+        {
+            string message = ex.Message;
+        }
+    }
+
+    void Edit(Brand brand) 
+    {
+        string url = $"/brands/{brand.Id}";
+        NavigationManager.NavigateTo(url);
+    }
+
+    async Task Delete(Brand brand)
+    {
+        var text = $"Are you sure you want to delete {brand.Name}?";
+        DialogParameters parameters = new()
+        {
+            Title = "Delete Brand?",
+            PrimaryAction = "Yes",
+            PrimaryActionEnabled = true,
+            SecondaryAction = "No",
+            Width = "500px",
+            TrapFocus = true,
+            Modal = true,
+            PreventScroll = true
+        };
+        RenderFragment body =@<div>@text</div>;
+
+        IDialogReference dialog = await DialogService.ShowDialogAsync(body, parameters);
+        DialogResult? result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            var deleteResult = await brandService.DeleteAsync(brand.Id);
+        }
+    }
+}

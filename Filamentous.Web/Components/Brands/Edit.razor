@@ -1,0 +1,36 @@
+﻿@page "/brands/{Id:guid}"
+@using Filamentous.Web.Services
+@using JumpStart.Services
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+@inject IBrandService brandService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Brand</PageTitle>
+
+<h1>Edit Brand</h1>
+
+@if (brand == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+   <p>Editing @brand.Name</p>
+}
+
+@code {
+    [Parameter]
+    public Guid? Id { get; set; }
+    private Brand? brand;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id != null)
+        {
+            brand = await brandService.GetAsync(Id.Value);
+        }
+    }
+
+
+}
