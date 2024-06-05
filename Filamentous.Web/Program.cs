@@ -16,6 +16,8 @@ using Microsoft.OpenApi.Models;
 using JumpStart.Services;
 using Filamentous.Web.Services;
 using Filamentous.Web.Components.Account.Pages;
+using JumpStart.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -88,7 +90,14 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.UseJumpstart();
+app.UseJumpstart(options =>
+{
+    CultureInfo english = CultureInfo.GetCultureInfo("en-US");
+    CultureInfo spanish = CultureInfo.GetCultureInfo("es-US");
+    CultureInfo french = CultureInfo.GetCultureInfo("fr-FR");
+    options.Cultures = new List<CultureInfo>([english, spanish, french]);
+    options.DefaultCulture = english;
+});
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

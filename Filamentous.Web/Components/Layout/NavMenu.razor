@@ -3,15 +3,16 @@
 @implements IDisposable
 
 @inject NavigationManager NavigationManager
+@inject IStringLocalizer<SharedResources> Localizer
 
 <div class="navmenu">
     <input type="checkbox" title="Menu expand/collapse toggle" id="navmenu-toggle" class="navmenu-icon" />
     <label for="navmenu-toggle" class="navmenu-icon"><FluentIcon Value="@(new Icons.Regular.Size20.Navigation())" Color="Color.Fill" /></label>
     <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click();">
         <FluentNavMenu Id="main-menu" Collapsible="true" Width="250" Title="Navigation menu" @bind-Expanded="expanded">
-            <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
+            <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">@Localizer["Components_Layout_NavMenu_Home"]</FluentNavLink>
             <FluentNavLink Href="counter" Icon="@(new Icons.Regular.Size20.NumberSymbolSquare())" IconColor="Color.Accent">Counter</FluentNavLink>
-            <FluentNavLink Href="brands" Icon="@(new Icons.Regular.Size20.TicketDiagonal())" IconColor="Color.Accent">Brand</FluentNavLink>
+            <FluentNavLink Href="brands" Icon="@(new Icons.Regular.Size20.TicketDiagonal())" IconColor="Color.Accent">@Localizer["Components_Layout_NavMenu_Brands"]</FluentNavLink>
             <FluentNavLink Href="weather" Icon="@(new Icons.Regular.Size20.WeatherPartlyCloudyDay())" IconColor="Color.Accent">Weather</FluentNavLink>
             <FluentNavLink Href="auth" Icon="@(new Icons.Regular.Size20.LockClosedKey())" IconColor="Color.Accent">Auth Required</FluentNavLink>
             <AuthorizeView>
@@ -20,12 +21,12 @@
                     <form action="Account/Logout" method="post">
                         <AntiforgeryToken />
                         <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                        <FluentButton Type="ButtonType.Submit" Style="width: 100%;">Logout</FluentButton>
+                        <FluentButton Type="ButtonType.Submit" Style="width: 100%;">@Localizer["Components_Layout_NavMenu_Logout"]</FluentButton>
                     </form>
                 </Authorized>
                 <NotAuthorized>
-                    <FluentNavLink Href="Account/Register">Register</FluentNavLink>
-                    <FluentNavLink Href="Account/Login">Login</FluentNavLink>
+                    <FluentNavLink Href="Account/Register">@Localizer["Components_Layout_NavMenu_Register"]</FluentNavLink>
+                    <FluentNavLink Href="Account/Login">@Localizer["Components_Layout_NavMenu_Login"]</FluentNavLink>
                 </NotAuthorized>
             </AuthorizeView>
         </FluentNavMenu>

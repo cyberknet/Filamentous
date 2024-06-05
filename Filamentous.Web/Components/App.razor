@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@page "/"
+@using System.Globalization
+@using Microsoft.AspNetCore.Components
+@inject NavigationManager Navigation
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,3 +22,20 @@
 </body>
 
 </html>
+
+@code {
+    protected override void OnInitialized()
+    {
+        var uri = new Uri(Navigation.Uri);
+        var cultureQuery = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("culture", out var culture);
+
+        if (cultureQuery)
+        {
+            var cultureInfo = new CultureInfo(culture.ToString());
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+            Navigation.NavigateTo(uri.GetLeftPart(UriPartial.Path), forceLoad: true); // Remove the query string after setting the culture
+        }
+    }
+}

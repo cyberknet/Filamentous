@@ -1,0 +1,19 @@
+﻿@inject NavigationManager Navigation
+@inject IStringLocalizer<SharedResources> Localizer
+
+<select @onchange="ChangeCulture">
+    <option value="en-US">@Localizer["Components_Layout_CultureSelector_English"]</option>
+    <option value="fr-FR">@Localizer["Components_Layout_CultureSelector_French"]</option>
+    <option value="es-US">@Localizer["Components_Layout_CultureSelector_Spanish"]</option>
+</select>
+
+@code {
+    private async Task ChangeCulture(ChangeEventArgs e)
+    {
+        var culture = e.Value.ToString();
+        var uri = new Uri(Navigation.Uri);
+        var baseUri = uri.GetLeftPart(UriPartial.Path);
+
+        Navigation.NavigateTo($"{baseUri}?culture={culture}", forceLoad: true);
+    }
+}
