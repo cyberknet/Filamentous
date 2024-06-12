@@ -12,16 +12,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace Filamentous.Web.Controllers;
 [Route("api/[controller]")]
 //[Authorize]
-public class BrandController : JumpstartAuditController<Brand>
+public class PolymerController : JumpstartAuditController<Polymer>
 { 
-	public BrandController(FilamentousDbContext context) : base(context) { }
+	public PolymerController(FilamentousDbContext context) : base(context) { }
 
-    protected override IQueryable<Brand> ApplyAccessRestrictions(IQueryable<Brand> query)
+    protected override IQueryable<Polymer> ApplyAccessRestrictions(IQueryable<Polymer> query)
     {
         return query;
     }
 
-    protected override IQueryable<Brand> AddIncludes(IQueryable<Brand> query)
+    protected override IQueryable<Polymer> AddIncludes(IQueryable<Polymer> query)
     {
         return base.AddIncludes(query, true);
     }

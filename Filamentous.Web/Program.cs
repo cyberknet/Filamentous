@@ -64,6 +64,7 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 
 builder.Services.AddJumpStart("https://localhost:1234/", "https://localhost:1234", "super-secret-key");
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

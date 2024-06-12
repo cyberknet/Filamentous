@@ -8,6 +8,8 @@ namespace Filamentous.Data;
 public class FilamentousDbContext : IdentityDbContext<IdentityUser>
 {
     public DbSet<Brand> Brands { get; set; }
+    public DbSet<Polymer> Polymers { get; set; }
+    //public DbSet<ProductLine> ProductLines { get; set; }
 
     public FilamentousDbContext(DbContextOptions<FilamentousDbContext> options) : base(options)
     {

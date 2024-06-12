@@ -1,19 +1,31 @@
-﻿@inject NavigationManager Navigation
+﻿@using System.Globalization
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
 @inject IStringLocalizer<SharedResources> Localizer
 
-<select @onchange="ChangeCulture">
-    <option value="en-US">@Localizer["Components_Layout_CultureSelector_English"]</option>
-    <option value="fr-FR">@Localizer["Components_Layout_CultureSelector_French"]</option>
-    <option value="es-US">@Localizer["Components_Layout_CultureSelector_Spanish"]</option>
-</select>
+<FluentSelect TOption="string" @onchange="(args)=>ChangeCulture(args)" @bind-SelectedOption="@selectedCulture">
+    @foreach (var culture in JumpStart.Localization.LocalizationConfiguration.Cultures)
+        {
+        bool selected = CultureInfo.CurrentUICulture.Name == culture.Name;
+        string x = "a";
+        <FluentOption Selected="@selected" value="@culture.Name">
+            @Localizer["Components_Layout_CultureSelector_" + culture.Name]
+            </FluentOption>
+        }
+</FluentSelect>
 
 @code {
+    private string selectedCulture = CultureInfo.CurrentUICulture.Name;
+
     private async Task ChangeCulture(ChangeEventArgs e)
     {
-        var culture = e.Value.ToString();
-        var uri = new Uri(Navigation.Uri);
-        var baseUri = uri.GetLeftPart(UriPartial.Path);
+        if (e.Value != null)
+        {
+            var culture = (string)e.Value;
+            var uri = new Uri(Navigation.Uri);
+            var baseUri = uri.GetLeftPart(UriPartial.Path);
 
-        Navigation.NavigateTo($"{baseUri}?culture={culture}", forceLoad: true);
+            Navigation.NavigateTo($"{baseUri}?culture={culture}", forceLoad: true);
+        }
     }
 }

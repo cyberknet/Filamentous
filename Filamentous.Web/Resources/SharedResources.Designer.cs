@@ -63,27 +63,27 @@ namespace Filamentous.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
-        public static string Components_Layout_CultureSelector_English {
+        public static string Components_Layout_CultureSelector_en_US {
             get {
-                return ResourceManager.GetString("Components_Layout_CultureSelector_English", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Français.
-        /// </summary>
-        public static string Components_Layout_CultureSelector_French {
-            get {
-                return ResourceManager.GetString("Components_Layout_CultureSelector_French", resourceCulture);
+                return ResourceManager.GetString("Components_Layout_CultureSelector_en-US", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Español.
         /// </summary>
-        public static string Components_Layout_CultureSelector_Spanish {
+        public static string Components_Layout_CultureSelector_es_US {
             get {
-                return ResourceManager.GetString("Components_Layout_CultureSelector_Spanish", resourceCulture);
+                return ResourceManager.GetString("Components_Layout_CultureSelector_es-US", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Français.
+        /// </summary>
+        public static string Components_Layout_CultureSelector_fr_FR {
+            get {
+                return ResourceManager.GetString("Components_Layout_CultureSelector_fr-FR", resourceCulture);
             }
         }
         
@@ -147,6 +147,15 @@ namespace Filamentous.Web.Resources {
         public static string Components_Layout_NavMenu_Logout {
             get {
                 return ResourceManager.GetString("Components_Layout_NavMenu_Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polymers.
+        /// </summary>
+        public static string Components_Layout_NavMenu_Polymers {
+            get {
+                return ResourceManager.GetString("Components_Layout_NavMenu_Polymers", resourceCulture);
             }
         }
         

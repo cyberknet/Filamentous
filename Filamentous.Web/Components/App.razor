@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@*@page "/"*@
 @using System.Globalization
 @using Microsoft.AspNetCore.Components
 @inject NavigationManager Navigation
@@ -24,6 +24,7 @@
 </html>
 
 @code {
+    private string? navigateTo;
     protected override void OnInitialized()
     {
         var uri = new Uri(Navigation.Uri);
@@ -35,7 +36,16 @@
             CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
-            Navigation.NavigateTo(uri.GetLeftPart(UriPartial.Path), forceLoad: true); // Remove the query string after setting the culture
+            string navigateTo = uri.GetLeftPart(UriPartial.Path);
         }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (navigateTo != null)
+        {
+            Navigation.NavigateTo(navigateTo, forceLoad: true); // Remove the query string after setting the culture
+        }
+        base.OnAfterRender(firstRender);
     }
 }

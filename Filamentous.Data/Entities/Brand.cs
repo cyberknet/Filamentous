@@ -19,4 +19,6 @@ public class Brand : NamedAuditEntity, IAuditableEntity
     public Uri? ProductUrlTemplate { get; set; }
     [Column(Order = 11)]
     public Uri? SpoolUrlTemplate { get; set; }
+
+    public List<ProductLine> ProductLines { get; set; } = new();
 }

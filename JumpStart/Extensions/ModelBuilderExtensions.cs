@@ -73,6 +73,12 @@ public static class JumpStartModelBuilderExtensions
         services.AddTransient<IAuthService, AuthService>();
         services.AddScoped<UserInfo>();
 
+        // add an in-memory cache for AuthService
+        services.AddMemoryCache();
+
+        // add support for localization
+        services.AddLocalization();//options => options.ResourcesPath = "Resources");
+
         return mvcBuilder;
     }
 

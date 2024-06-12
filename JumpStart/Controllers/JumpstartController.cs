@@ -71,7 +71,7 @@ public abstract class JumpstartController<TEntity> : Controller where TEntity : 
             results = results.Take(limit);
 
         // convert the IQueryable into a paged list
-        var paged = new PagedResponse<TEntity>() { Data = results, Limit = limit, Offset = offset };
+        PagedResponse<TEntity> paged = new (results, count, limit, offset);
 
         // return the paged list to the client
         return Ok(paged);

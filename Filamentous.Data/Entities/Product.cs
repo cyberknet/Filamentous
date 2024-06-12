@@ -1,4 +1,5 @@
-﻿using JumpStart.Data.Entities.Base;
+﻿using JumpStart.Data.Entities;
+using JumpStart.Data.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,12 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Filamentous.Data.Entities;
-public class Product : NamedEntity
+public class Product : NamedAuditEntity, IAuditableEntity
 {
     [Column(Order = 2)]
-    public Brand Brand { get; set; }
-    [Column(Order = 3)]
-    public FilamentType FilamentType { get; set; }
+    public ProductLine ProductLine { get; set; }
+    
 
 
     [Column(Order = 10)]

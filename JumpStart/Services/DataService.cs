@@ -73,10 +73,12 @@ public abstract class DataService<TEntity> : IDataService<TEntity> where TEntity
         try
         {
             var request = new RestRequest(_entityName, Method.Get);
-            string? token = await GetJwtToken();
+            string? token = null; //await GetJwtToken();
             if (token != null)
                 request.AddHeader("Bearer", token);
             var response = await Client.ExecuteAsync<PagedResponse<TEntity>>(request);
+
+            string content = response.Content;
 
             if (response != null && response.StatusCode == HttpStatusCode.OK && response.Data != null)
                 return response.Data;
