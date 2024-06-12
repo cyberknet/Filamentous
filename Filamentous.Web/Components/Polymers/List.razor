@@ -4,7 +4,7 @@
 @using Microsoft.AspNetCore.Authorization
 @rendermode InteractiveServer
 @attribute [StreamRendering]
-@inject IPolymerService polymerTypeService
+@inject IPolymerService polymerService
 @inject NavigationManager NavigationManager
 @inject IDialogService DialogService
 @*@attribute [Authorize]*@
@@ -38,7 +38,7 @@ else
     {
         try
         {
-            var result = await polymerTypeService.ListAsync();
+            var result = await polymerService.ListAsync();
             polymers = result.Data.AsQueryable();
         }
         catch(Exception ex)
@@ -74,7 +74,7 @@ else
 
         if (!result.Cancelled)
         {
-            var deleteResult = await polymerTypeService.DeleteAsync(polymerType.Id);
+            var deleteResult = await polymerService.DeleteAsync(polymerType.Id);
         }
     }
 }

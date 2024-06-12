@@ -60,6 +60,7 @@ builder.Services.AddSwaggerGen(c =>
 
 
 builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<IPolymerService, PolymerService>();
 
 
 builder.Services.AddJumpStart("https://localhost:1234/", "https://localhost:1234", "super-secret-key");

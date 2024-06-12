@@ -158,13 +158,20 @@ internal class FilamentousSeed
                 _polymerOther
             );
     }    
-    private static Polymer MakePolymer(Guid id, string name) => new Polymer { Id=id, Name=name, ConcurrencyStamp=id };    
+    private static Polymer MakePolymer(Guid id, string name) => 
+        new Polymer
+        { 
+            Id=id, 
+            Name=name, 
+            CreatedById= _userAdminId.ToString(),
+            ConcurrencyStamp =id 
+        };
     #endregion
 
     #region ProductLines
-    
+
     //#region Polymaker
-    
+
     //#region PLA
     //#region PolyLite PLA
     //private static Guid _productLineIdPolyLitePla           = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000001");
@@ -179,95 +186,95 @@ internal class FilamentousSeed
     //#endregion
 
     //#region PolyTerra
-    //private static Guid _productLineIdPolyTerraMatte                = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000010");
-    //private static Guid _productLineIdPolyTerraDualMatte            = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000011");
-    //private static Guid _productLineIdPolyTerraGradientMatte        = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000012");
-    //private static Guid _productLineIdPolyTerraDualGradientMatte    = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000013");
-    //private static Guid _productLineIdPolyTerraMarble               = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000014");
-    //private static Guid _productLineIdPolyTerraSatin                = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000015");
+    //private static Guid _productLineIdPolyTerraMatte             = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000010");
+    //private static Guid _productLineIdPolyTerraDualMatte         = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000011");
+    //private static Guid _productLineIdPolyTerraGradientMatte     = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000012");
+    //private static Guid _productLineIdPolyTerraDualGradientMatte = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000013");
+    //private static Guid _productLineIdPolyTerraMarble            = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000014");
+    //private static Guid _productLineIdPolyTerraSatin             = Guid.Parse("D9A3F45C-81AE-4B86-B477-050000000015");
     //#endregion
 
     //#region Polysonic
-    //private static Guid _productLineIdPolySonicPla =    Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000016");
+    //private static Guid _productLineIdPolySonicPla    = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000016");
     //private static Guid _productLineIdPolySonicPlaPro = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000017");
     //#endregion
 
     //#region PolyLite Pro/Max
-    //private static Guid _productLineIdPolyLitePlaPro =          Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000018");
-    //private static Guid _productLineIdPolyLiteMetallicPlaPro =  Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000019");
-    //private static Guid _productLineIdPolyMaxPla =              Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000020");
+    //private static Guid _productLineIdPolyLitePlaPro         = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000018");
+    //private static Guid _productLineIdPolyLiteMetallicPlaPro = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000019");
+    //private static Guid _productLineIdPolyMaxPla             = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000020");
     //#endregion
 
     //#region Other PLA
     //private static Guid _productLineIdSeasonalPacksPla = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000021");
-    //private static Guid _productLineIdPolyLiteCosPla = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000022");
-    //private static Guid _productLineIdLightWeightPla = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000023");
-    //private static Guid _productLineIdCarbonFiberPla = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000024");
-    //private static Guid _productLineIdPolyWoodPla = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000025");
-    //private static Guid _productLineIdDraftPla = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000026");
-    //private static Guid _productLineIdMattePla = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000027");
+    //private static Guid _productLineIdPolyLiteCosPla   = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000022");
+    //private static Guid _productLineIdLightWeightPla   = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000023");
+    //private static Guid _productLineIdCarbonFiberPla   = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000024");
+    //private static Guid _productLineIdPolyWoodPla      = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000025");
+    //private static Guid _productLineIdDraftPla         = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000026");
+    //private static Guid _productLineIdMattePla         = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000027");
     //#endregion
     //#endregion
 
     //#region ABS
-    //private static Guid _productLineIdPolyLiteAbs = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000028");
+    //private static Guid _productLineIdPolyLiteAbs         = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000028");
     //private static Guid _productLineIdPolyLiteMetallicAbs = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000029");
-    //private static Guid _productLineIdPolyLiteGalaxyAbs = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000029");
-    //private static Guid _productLineIdPolyLiteNeonAbs = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000029");
+    //private static Guid _productLineIdPolyLiteGalaxyAbs   = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000029");
+    //private static Guid _productLineIdPolyLiteNeonAbs     = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000029");
     //#endregion
 
     //#region ASA
-    //private static Guid _productLineIdPolyLiteAsa = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000029");
+    //private static Guid _productLineIdPolyLiteAsa       = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000029");
     //private static Guid _productLineIdPolyLiteGalaxyAsa = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000029");
     //#endregion
 
     //#region PETG
-    //private static Guid _productLineIdPolyLitePetg = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000029");
+    //private static Guid _productLineIdPolyLitePetg            = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000029");
     //private static Guid _productLineIdPolyLiteTranslucentPetg = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000030");
-    //private static Guid _productLineIdPolyMaxPetg = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000031");
-    //private static Guid _productLineIdPolyMaxPetgEsd = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000032");
+    //private static Guid _productLineIdPolyMaxPetg             = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000031");
+    //private static Guid _productLineIdPolyMaxPetgEsd          = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000032");
     //#endregion
 
     //#region TPU
-    //private static Guid _productLineIdPolyMaxTpu90 = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000033");
-    //private static Guid _productLineIdPolyMaxTpu95 = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000034");
+    //private static Guid _productLineIdPolyMaxTpu90   = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000033");
+    //private static Guid _productLineIdPolyMaxTpu95   = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000034");
     //private static Guid _productLineIdPolyMaxTpu95HF = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000035");
     //#endregion
 
     //#region PC
-    //private static Guid _productLineIdPolyLitePC = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000036");
-    //private static Guid _productLineIdPolyMaxPC = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000037");
-    //private static Guid _productLineIdPolyMaxPCFR = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000038");
+    //private static Guid _productLineIdPolyLitePC   = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000036");
+    //private static Guid _productLineIdPolyMaxPC    = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000037");
+    //private static Guid _productLineIdPolyMaxPCFR  = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000038");
     //private static Guid _productLineIdPolyMaxPCABS = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000039");
     //private static Guid _productLineIdPolyMaxPCPBT = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000040");
     //#endregion
 
     //#region Nylon
-    //private static Guid _productLineIdPolyMideCoPA = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000041");
-    //private static Guid _productLineIdPolyMidePA6GF = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000042");
-    //private static Guid _productLineIdPolyMidePA6CF = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000043");
+    //private static Guid _productLineIdPolyMideCoPA    = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000041");
+    //private static Guid _productLineIdPolyMidePA6GF   = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000042");
+    //private static Guid _productLineIdPolyMidePA6CF   = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000043");
     //private static Guid _productLineIdPolyMidePA612CF = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000044");
-    //private static Guid _productLineIdPolyMidePA12CF = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000045");
+    //private static Guid _productLineIdPolyMidePA12CF  = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000045");
     //#endregion
 
     //#region Other
-    //private static Guid _productLineIdPolySmooth = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000046");
-    //private static Guid _productLineIdPolyCast = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000047");
-    //private static Guid _productLineIdPolySupportPla = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000048");
+    //private static Guid _productLineIdPolySmooth      = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000046");
+    //private static Guid _productLineIdPolyCast        = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000047");
+    //private static Guid _productLineIdPolySupportPla  = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000048");
     //private static Guid _productLineIdPolySupportPa12 = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000049");
-    //private static Guid _productLineIdPolyDissolve = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000050");
+    //private static Guid _productLineIdPolyDissolve    = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000050");
     //#endregion
 
     //#endregion
-    
+
     //#region Prusament
-    //private static Guid _productLineIdPrusamentPla = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000051");
-    //private static Guid _productLineIdPrusamentRPla = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000052");
-    //private static Guid _productLineIdPrusamentPetg = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000053");
+    //private static Guid _productLineIdPrusamentPla     = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000051");
+    //private static Guid _productLineIdPrusamentRPla    = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000052");
+    //private static Guid _productLineIdPrusamentPetg    = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000053");
     //private static Guid _productLineIdPrusamentPcBlend = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000054");
-    //private static Guid _productLineIdPrusamentPvb = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000055");
-    //private static Guid _productLineIdPrusamentAsa = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000056");
-    //private static Guid _productLineIdPrusamentPa11Cf = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000057");
+    //private static Guid _productLineIdPrusamentPvb     = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000055");
+    //private static Guid _productLineIdPrusamentAsa     = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000056");
+    //private static Guid _productLineIdPrusamentPa11Cf  = Guid.Parse("D9A3F45C-81AE-4B86-B477-05000000057");
     //#endregion
 
     //private static Dictionary<Guid, ProductLine> _productLines = new ();
@@ -368,7 +375,7 @@ internal class FilamentousSeed
     //    MakeProductLine(_productLineIdPolyDissolve, "PolyDissolve", _polymerIdPVA);
     //    #endregion
     //    #endregion
-        
+
     //    #region Prusament
     //    MakeProductLine(_productLineIdPrusamentPla, "Prusament PLA", _polymerIdPLA);
     //    MakeProductLine(_productLineIdPrusamentRPla, "Prusament rPLA", _polymerIdPLA);
@@ -385,7 +392,14 @@ internal class FilamentousSeed
 
     //private static ProductLine MakeProductLine(Guid id, string name, Guid polymerTypeId)
     //{ 
-    //    var productLine = new ProductLine { Id = id, Name = name, PolymerTypeId = polymerTypeId, ConcurrencyStamp=id };
+    //    var productLine = new ProductLine
+    //    {
+    //        Id = id,
+    //        Name = name,
+    //        PolymerTypeId = polymerTypeId,
+    //        ConcurrencyStamp=id,
+    //        CreatedById=_userAdminId
+    //    };
     //    _productLines.Add(id, productLine);
     //    return productLine;
     //}
