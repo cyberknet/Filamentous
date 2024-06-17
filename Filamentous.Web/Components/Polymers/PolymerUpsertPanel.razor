@@ -1,8 +1,8 @@
-﻿@implements IDialogContentComponent<Polymer>
+﻿@implements IDialogContentComponent<EntityDialogContent<Polymer>>
 
 <FluentDialogBody>
 	<FluentStack Orientation="Orientation.Vertical">
-		<FluentTextField @bind-Value="@Content.Name">
+		<FluentTextField @bind-Value="@Content.Entity.Name">
 			<LabelTemplate>
 				<FluentLabel Weight="FontWeight.Bold">
 					<FluentStack Orientation="Orientation.Horizontal">
@@ -14,20 +14,20 @@
 		</FluentTextField>
 		<FluentSpacer Width="10" />
 
-		@if (Content.Id != Guid.Empty)
+		@if (Content.Entity.Id != Guid.Empty)
 		{
 			<FluentSpacer Width="10" />
 			<FluentStack Orientation="Orientation.Vertical">
 				<FluentLabel Weight="FontWeight.Bold">Created</FluentLabel>
-				<FluentLabel>@Content.CreatedOn.ToString("dd-MM-yyyy")</FluentLabel>
+				<FluentLabel>@Content.Entity.CreatedOn.ToString("dd-MM-yyyy")</FluentLabel>
 			</FluentStack>
 
-			@if (Content.UpdatedOn.HasValue)
+			@if (Content.Entity.UpdatedOn.HasValue)
 			{
 				<FluentSpacer Width="10" />
 				<FluentStack Orientation="Orientation.Vertical">
 					<FluentLabel Weight="FontWeight.Bold">Modified</FluentLabel>
-					<FluentLabel>@Content.UpdatedOn?.ToString("dd-MM-yyyy")</FluentLabel>
+					<FluentLabel>@Content.Entity.UpdatedOn?.ToString("dd-MM-yyyy")</FluentLabel>
 				</FluentStack>
 			}
 		}
@@ -36,5 +36,5 @@
 
 @code {
 	[Parameter]
-	public Polymer Content { get; set; } = default!;
+	public EntityDialogContent<Polymer> Content { get; set; } = default!;
 }

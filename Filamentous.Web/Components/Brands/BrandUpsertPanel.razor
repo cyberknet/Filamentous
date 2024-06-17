@@ -1,8 +1,8 @@
-﻿@implements IDialogContentComponent<Brand>
+﻿@implements IDialogContentComponent<EntityDialogContent<Brand>>
 
 <FluentDialogBody>
 	<FluentStack Orientation="Orientation.Vertical">
-		<FluentTextField @bind-Value="@Content.Name">
+		<FluentTextField @bind-Value="@Content.Entity.Name">
 			<LabelTemplate>
 				<FluentLabel Weight="FontWeight.Bold">
 					<FluentStack Orientation="Orientation.Horizontal">
@@ -13,7 +13,7 @@
 			</LabelTemplate>
 		</FluentTextField>
 		<FluentSpacer Width="10" />
-		<FluentUrlField @bind-Value="@Content.Url">
+		<FluentUrlField @bind-Value="@Content.Entity.Url">
 			<LabelTemplate>
 				<FluentLabel Weight="FontWeight.Bold">
 					<FluentStack Orientation="Orientation.Horizontal">
@@ -24,7 +24,7 @@
 			</LabelTemplate>
 		</FluentUrlField>
 		<FluentSpacer Width="10" />
-		<FluentUrlField @bind-Value="@Content.ProductUrlTemplate">
+		<FluentUrlField @bind-Value="@Content.Entity.ProductUrlTemplate">
 			<LabelTemplate>
 				<FluentLabel Weight="FontWeight.Bold">
 					<FluentStack Orientation="Orientation.Horizontal">
@@ -35,7 +35,7 @@
 			</LabelTemplate>
 		</FluentUrlField>
 		<FluentSpacer Width="10" />
-		<FluentUrlField @bind-Value="@Content.SpoolUrlTemplate">
+		<FluentUrlField @bind-Value="@Content.Entity.SpoolUrlTemplate">
 			<LabelTemplate>
 				<FluentLabel Weight="FontWeight.Bold">
 					<FluentStack Orientation="Orientation.Horizontal">
@@ -46,20 +46,20 @@
 			</LabelTemplate>
 		</FluentUrlField>
 
-		@if (Content.Id != Guid.Empty)
+		@if (Content.Entity.Id != Guid.Empty)
 		{
 			<FluentSpacer Width="10" />
 			<FluentStack Orientation="Orientation.Vertical">
 				<FluentLabel Weight="FontWeight.Bold">Created</FluentLabel>
-				<FluentLabel>@Content.CreatedOn.ToString("dd-MM-yyyy")</FluentLabel>
+				<FluentLabel>@Content.Entity.CreatedOn.ToString("dd-MM-yyyy")</FluentLabel>
 			</FluentStack>
 
-			@if (Content.UpdatedOn.HasValue)
+			@if (Content.Entity.UpdatedOn.HasValue)
 			{
 				<FluentSpacer Width="10" />
 				<FluentStack Orientation="Orientation.Vertical">
 					<FluentLabel Weight="FontWeight.Bold">Modified</FluentLabel>
-					<FluentLabel>@Content.UpdatedOn?.ToString("dd-MM-yyyy")</FluentLabel>
+					<FluentLabel>@Content.Entity.UpdatedOn?.ToString("dd-MM-yyyy")</FluentLabel>
 				</FluentStack>
 			}
 		}
@@ -68,5 +68,5 @@
 
 @code {
 	[Parameter]
-	public Brand Content { get; set; } = default!;
+	public EntityDialogContent<Brand> Content { get; set; } = default!;
 }

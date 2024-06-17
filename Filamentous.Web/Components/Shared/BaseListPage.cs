@@ -5,6 +5,7 @@ using Filamentous.Web.Components.Brands;
 using Filamentous.Web.Resources;
 using Filamentous.Web.Services;
 using JumpStart.Data.Entities.Base;
+using JumpStart.Dialogs;
 using JumpStart.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -13,7 +14,7 @@ using Microsoft.FluentUI.AspNetCore.Components;
 public class BaseListPage<TService, TEntity, TUpsertPanel> : ComponentBase 
     where TEntity : Entity, new()
     where TService : IDataService<TEntity>
-    where TUpsertPanel : IDialogContentComponent<TEntity>
+    where TUpsertPanel : IDialogContentComponent<EntityDialogContent<TEntity>>
 {
     #region Dependency Injection
     [Inject] public required TService DataService { get; set; }
@@ -23,9 +24,10 @@ public class BaseListPage<TService, TEntity, TUpsertPanel> : ComponentBase
     [Inject] public required IToastService ToastService { get; set; }
     [Inject] public required IStringLocalizer<SharedResources> Localizer { get; set; }
     [Inject] public required NavigationManager NavigationManager { get; set; }
-    #endregion
+	[Inject] public required IServiceProvider ServiceProvider { get; set; }
+	#endregion
 
-    protected IQueryable<TEntity>? _entities = null;
+	protected IQueryable<TEntity>? _entities = null;
     protected IDialogReference? _dialog;
 
     protected enum Operation
@@ -98,16 +100,21 @@ public class BaseListPage<TService, TEntity, TUpsertPanel> : ComponentBase
     {
         var primaryActionText = insert ? "Add" : "Save";
         var title = insert ? "Create Brand" : "Update Brand";
-        var dialogParameter = new DialogParameters<TEntity>()
+        var dialogContent = new EntityDialogContent<TEntity>
         {
-            Content = entity,
+            Entity = entity,
+            ServiceProvider = ServiceProvider
+        };
+        var dialogParameter = new DialogParameters<EntityDialogContent<TEntity>>()
+        {
+            Content = dialogContent,
             Alignment = HorizontalAlignment.Right,
             Title = title,
             PrimaryAction = primaryActionText,
             Width = "500px",
             PreventDismissOnOverlayClick = false,
         };
-        _dialog = await DialogService.ShowPanelAsync<TUpsertPanel>(entity, dialogParameter);
+        _dialog = await DialogService.ShowPanelAsync<TUpsertPanel>(dialogContent, dialogParameter);
         return await _dialog.Result;
     }
 

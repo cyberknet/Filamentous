@@ -86,8 +86,8 @@ public static class JumpStartModelBuilderExtensions
         // add support for localization
         services.AddLocalization();//options => options.ResourcesPath = "Resources");
 
-        // automatically add any services that inherit from DataService<T> and have an interface that implements IDataService<T>
-        // note, the code takes into account inheritance, so the services do not need to directly inherit from DataService<T> or directly implement IDataService<T> 
+        // automatically add any services that inherit from DataService<TEntity> and have an interface that implements IDataService<TEntity>
+        // note, the code takes into account inheritance, so the services do not need to directly inherit from DataService<TEntity> or directly implement IDataService<TEntity> 
         AddServiceDependencies(services);
 
         return mvcBuilder;
@@ -112,21 +112,21 @@ public static class JumpStartModelBuilderExtensions
         // get the list of services we should add
         var services = GetServices();
 
-        // Register services that implement interfaces inheriting from IDataService<T>
+        // Register services that implement interfaces inheriting from IDataService<TEntity>
         foreach (var serviceType in services)
         {
             var interfaces = serviceType.GetInterfaces().ToList();
 
-            // get a list of the interfaces this class implements, along with the count of levels in the hierarchy until the interface implements IDataService<T>
+            // get a list of the interfaces this class implements, along with the count of levels in the hierarchy until the interface implements IDataService<TEntity>
             var leveledInterfaces = interfaces
                 .Select(i => new
                 {
                     InterfaceType = i,
                     InheritanceLevels = CountInheritanceLevels(typeof(IDataService<>), i)
                 }).ToList();
-            // filter out any interfaces that have -1 levels (they do not implement IDataService<T>)
+            // filter out any interfaces that have -1 levels (they do not implement IDataService<TEntity>)
             var filteredInterfaces = leveledInterfaces
-                .Where(x => x.InheritanceLevels >= 0).ToList(); // Filter out interfaces that don't inherit from IDataService<T>
+                .Where(x => x.InheritanceLevels >= 0).ToList(); // Filter out interfaces that don't inherit from IDataService<TEntity>
             // order the list by the number of levels descending - the highest number of levels is the most specific interface
             var orderedInterfaces = filteredInterfaces
                 .OrderByDescending(x => x.InheritanceLevels)

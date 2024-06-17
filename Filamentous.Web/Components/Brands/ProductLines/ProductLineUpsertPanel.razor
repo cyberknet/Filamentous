@@ -1,8 +1,9 @@
-﻿@implements IDialogContentComponent<ProductLine>
+﻿@using Filamentous.Web.Services
+@implements IDialogContentComponent<EntityDialogContent<ProductLine>>
 
 <FluentDialogBody>
 	<FluentStack Orientation="Orientation.Vertical">
-		<FluentTextField @bind-Value="@Content.Name">
+		<FluentTextField @bind-Value="@Content.Entity.Name">
 			<LabelTemplate>
 				<FluentLabel Weight="FontWeight.Bold">
 					<FluentStack Orientation="Orientation.Horizontal">
@@ -13,22 +14,68 @@
 			</LabelTemplate>
 		</FluentTextField>
 		<FluentSpacer Width="10" />
-		
 
-		@if (Content.Id != Guid.Empty)
+		<FluentSelect TOption="Polymer" Items="@_polymers" OptionValue="@(p => p.Id.ToString())" OptionText="@(p => p.Name)" @bind-SelectedOption="@Content.Entity.Polymer">
+			<LabelTemplate>
+				<FluentLabel Weight="FontWeight.Bold">
+					<FluentStack Orientation="Orientation.Horizontal">
+						<span>Polymer</span>
+						<FluentLabel Color="Color.Error">*</FluentLabel>
+					</FluentStack>
+				</FluentLabel>
+			</LabelTemplate>
+		</FluentSelect>
+
+		<FluentCheckbox @bind-Value="@Content.Entity.IsAbrasive">
+			<LabelTemplate>
+				<FluentLabel Weight="FontWeight.Bold">
+					<FluentStack Orientation="Orientation.Horizontal">
+						<span>Is Abrasive?</span>
+						<FluentLabel Color="Color.Error">*</FluentLabel>
+					</FluentStack>
+				</FluentLabel>
+			</LabelTemplate>
+		</FluentCheckbox>
+		<FluentSpacer Width="10" />
+
+		<FluentNumberField @bind-Value="@Content.Entity.HotEndTemperature">
+			<LabelTemplate>
+				<FluentLabel Weight="FontWeight.Bold">
+					<FluentStack Orientation="Orientation.Horizontal">
+						<span>Hot End Temperature</span>
+						<FluentLabel Color="Color.Error">*</FluentLabel>
+					</FluentStack>
+				</FluentLabel>
+			</LabelTemplate>
+		</FluentNumberField>
+		<FluentSpacer Width="10" />
+
+		<FluentNumberField @bind-Value="@Content.Entity.BedTemperature">
+			<LabelTemplate>
+				<FluentLabel Weight="FontWeight.Bold">
+					<FluentStack Orientation="Orientation.Horizontal">
+						<span>Bed Temperature</span>
+						<FluentLabel Color="Color.Error">*</FluentLabel>
+					</FluentStack>
+				</FluentLabel>
+			</LabelTemplate>
+		</FluentNumberField>
+		<FluentSpacer Width="10" />
+
+		@if (Content.Entity.Id != Guid.Empty)
 		{
 			<FluentSpacer Width="10" />
 			<FluentStack Orientation="Orientation.Vertical">
 				<FluentLabel Weight="FontWeight.Bold">Created</FluentLabel>
-				<FluentLabel>@Content.CreatedOn.ToString("dd-MM-yyyy")</FluentLabel>
+				<FluentLabel>@Content.Entity.CreatedOn.ToString("dd-MM-yyyy")</FluentLabel>
 			</FluentStack>
 
-			@if (Content.UpdatedOn.HasValue)
+			@if (Content.Entity.UpdatedOn.HasValue)
 			{
 				<FluentSpacer Width="10" />
 				<FluentStack Orientation="Orientation.Vertical">
 					<FluentLabel Weight="FontWeight.Bold">Modified</FluentLabel>
-					<FluentLabel>@Content.UpdatedOn?.ToString("dd-MM-yyyy")</FluentLabel>
+					<FluentLabel>@Content.Entity.UpdatedOn?.ToString("dd-MM-yyyy")</FluentLabel>
 				</FluentStack>
 			}
 		}
@@ -37,5 +84,27 @@
 
 @code {
 	[Parameter]
-	public ProductLine Content { get; set; } = default!;
+	public EntityDialogContent<ProductLine> Content { get; set; } = default!;
+
+	[Parameter]
+	public IPolymerService PolymerService { get; set; } = default!;
+
+	List<Polymer>? _polymers = null;
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (PolymerService == null)
+		{
+			PolymerService = Content.ServiceProvider.GetRequiredService<IPolymerService>();
+		}
+		if (_polymers == null && PolymerService != null)
+		{
+			var result = await PolymerService.ListAsync("Name", true);
+			_polymers = result.Data.ToList();
+			foreach (var polymer in _polymers)
+				if (Content.Entity.PolymerId == polymer.Id)
+					Content.Entity.Polymer = polymer;
+		}
+		await base.OnInitializedAsync();
+	}
 }
