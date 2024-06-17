@@ -4,8 +4,8 @@
 @inject IDialogService DialogService
 @inject IStringLocalizer<SharedResources> Localizer
 @typeparam TItem where TItem : Entity, INamedEntity
-<FluentButton aria-label="Delete" BackgroundColor="var(--danger-bg, #ff0000)" @onclick="@(() => Delete())">
-    <FluentIcon Value="@(new Icons.Filled.Size16.Delete())" Color="Color.Fill" />
+<FluentButton aria-label="Delete" @onclick="@(() => Delete())">
+    <FluentIcon Value="@(new Icons.Filled.Size16.Delete())" Color="@Color.Error" />
 </FluentButton>
 
 @code {
