@@ -78,10 +78,18 @@ public abstract class JumpstartController<TEntity> : Controller where TEntity : 
     }
 
     // GET api/Entity/5
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     public virtual ActionResult<TEntity> Get(Guid id)
     {
-        var result = _context.Set<TEntity>().FirstOrDefault(t => t.Id == id);
+        IQueryable<TEntity> results = _context.Set<TEntity>();
+
+        // filter results down by user access level - to be provided by the concrete implementation
+        results = ApplyAccessRestrictions(results);
+
+        // allow concrete implementation to add in any required includes
+        results = AddIncludes(results);
+
+        TEntity? result = results.FirstOrDefault(t => t.Id == id);
 
         if (result == null)
             return NotFound();
@@ -99,7 +107,7 @@ public abstract class JumpstartController<TEntity> : Controller where TEntity : 
     }
 
     // PUT api/Entity/5
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     public virtual IActionResult Update(Guid id, [FromBody] TEntity updated)
     {
         var entity = _context.Set<TEntity>().Find(id);
@@ -152,7 +160,7 @@ public abstract class JumpstartController<TEntity> : Controller where TEntity : 
     }
 
     // DELETE api/Entity/5
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:guid}")]
     public virtual IActionResult Delete(Guid id)
     {
         var delete = _context.Set<TEntity>().Find(id);
@@ -160,6 +168,6 @@ public abstract class JumpstartController<TEntity> : Controller where TEntity : 
             return NotFound();
         _context.Set<TEntity>().Remove(delete);
         _context.SaveChanges();
-        return NoContent();
+        return Ok();
     }
 }

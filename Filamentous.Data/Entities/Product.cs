@@ -1,5 +1,6 @@
 ﻿using JumpStart.Data.Entities;
 using JumpStart.Data.Entities.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,29 +13,39 @@ namespace Filamentous.Data.Entities;
 public class Product : NamedAuditEntity, IAuditableEntity
 {
     [Column(Order = 2)]
-    public ProductLine ProductLine { get; set; }
+    public ProductLine ProductLine { get; set; } = null!;
     
 
 
     [Column(Order = 10)]
-    public string SKU { get; set; }
+    public string? SKU { get; set; }
     [Column(Order = 11)]
+    public string? UPC { get; set; }
+    [Column(Order = 12)]
     public Uri? ProductUrl { get; set; }
+    [Column(Order = 13)]
+    public Uri? FilamentXyzUrl { get; set; }
     
 
+    
     [Column(Order = 20)]
-    [MaxLength(7)]
-    public string Color { get; set; }
+    public int ProductWeight { get; set; }
     [Column(Order = 21)]
-    [MaxLength(50)]
-    public string ColorName { get; set; }
-    [Column(Order = 12)]
-
-
-    public int Weight { get; set; }
-    [Column(Order = 30)]
     public int SpoolWeight { get; set; }
+    
+
+    [Column(Order = 30)]
+    public string? ColorCode { get; set; }
+    [Column(Order = 31)]
+    public bool IsGradient { get; set; }
+    [Column(Order =32)]
+    public int? GradientCycleLength { get; set; }
+
 
     [Column(Order =40)]
+    [Precision(14,2)]
+    public decimal Price { get; set; }
+    
+    [Column(Order =50)]
     public bool? Discontinued { get; set; }
 }

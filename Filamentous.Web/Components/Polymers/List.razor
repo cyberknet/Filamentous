@@ -1,80 +1,42 @@
 ﻿@page "/polymers"
+@inherits BaseListPage<IPolymerService, Polymer, PolymerUpsertPanel>
 @using Filamentous.Web.Services
 @using JumpStart.Services
 @using Microsoft.AspNetCore.Authorization
 @rendermode InteractiveServer
 @attribute [StreamRendering]
-@inject IPolymerService polymerService
-@inject NavigationManager NavigationManager
-@inject IDialogService DialogService
 @*@attribute [Authorize]*@
 <PageTitle>Polymers</PageTitle>
 
 <h1>Polymers</h1>
 
-@if (polymers == null)
+@if (_entities == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+    <div style="border-top:1px solid lightgrey;margin-bottom:3em">
+        <FluentToolbar Style="margin-top:0;padding-top:0">
+            <FluentButton Appearance="Appearance.Stealth" IconStart="@(new Icons.Regular.Size12.Add())"
+                          @onclick="@(() => OnAddEntityClick((e) => e.Name))" Title="Add an image type">Add Image Type</FluentButton>
+        </FluentToolbar>
+    </div>
+
     <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
-    <FluentDataGrid Id="grid" Items="@polymers" GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem="Polymer">
-        <PropertyColumn Title="Name" Property="@(c => c.Name)" Align="Align.Start"/>
+    <FluentDataGrid Id="grid" TGridItem="Polymer" Items="@_entities" GridTemplateColumns="1fr 1fr 1fr 2fr">
+        <PropertyColumn Title="Name" Property="@(c => c.Name)" Align="Align.Start" />
         <TemplateColumn Title="Actions" Align="@Align.End">
-            <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" @onclick="@(() => Edit(context))" />
-            <FluentButton aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" @onclick="@(() => Delete(context))" />
+            <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" @onclick="@(() => OnEditEntityClick(context, (e) => e.Name))" />
+            <FluentDeleteButton TItem="Polymer"
+                                Item="context"
+                                DataService="DataService"
+                                TitleResourceKey="Components_Polymer_List_DeleteTitle"
+                                TextResourceKey="Components_Polymer_List_DeleteText" />
         </TemplateColumn>
     </FluentDataGrid>
 }
 
 @code {
-    private IQueryable<Polymer>? polymers;
 
-    string message = string.Empty;
-    private int currentCount = 0;
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            var result = await polymerService.ListAsync();
-            polymers = result.Data.AsQueryable();
-        }
-        catch(Exception ex)
-        {
-            string message = ex.Message;
-        }
-    }
-
-    void Edit(Polymer polymerType) 
-    {
-        string url = $"/brands/{polymerType.Id}";
-        NavigationManager.NavigateTo(url);
-    }
-
-    async Task Delete(Polymer polymerType)
-    {
-        var text = $"Are you sure you want to delete {polymerType.Name}?";
-        DialogParameters parameters = new()
-        {
-            Title = "Delete Polymer Type?",
-            PrimaryAction = "Yes",
-            PrimaryActionEnabled = true,
-            SecondaryAction = "No",
-            Width = "500px",
-            TrapFocus = true,
-            Modal = true,
-            PreventScroll = true
-        };
-        RenderFragment body =@<div>@text</div>;
-
-        IDialogReference dialog = await DialogService.ShowDialogAsync(body, parameters);
-        DialogResult? result = await dialog.Result;
-
-        if (!result.Cancelled)
-        {
-            var deleteResult = await polymerService.DeleteAsync(polymerType.Id);
-        }
-    }
 }

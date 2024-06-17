@@ -133,6 +133,15 @@ namespace Filamentous.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image Types.
+        /// </summary>
+        public static string Components_Layout_NavMenu_ImageTypes {
+            get {
+                return ResourceManager.GetString("Components_Layout_NavMenu_ImageTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Components_Layout_NavMenu_Login {
@@ -165,6 +174,24 @@ namespace Filamentous.Web.Resources {
         public static string Components_Layout_NavMenu_Register {
             get {
                 return ResourceManager.GetString("Components_Layout_NavMenu_Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the polymer named {0}?.
+        /// </summary>
+        public static string Components_Polymers_List_DeleteText {
+            get {
+                return ResourceManager.GetString("Components_Polymers_List_DeleteText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Polymer?.
+        /// </summary>
+        public static string Components_Polymers_List_DeleteTitle {
+            get {
+                return ResourceManager.GetString("Components_Polymers_List_DeleteTitle", resourceCulture);
             }
         }
     }

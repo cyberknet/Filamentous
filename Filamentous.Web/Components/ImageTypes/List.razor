@@ -1,0 +1,96 @@
+﻿@page "/imagetypes"
+@inherits BaseListPage<IImageTypeService, ImageType, ImageTypeUpsertPanel>
+@using Filamentous.Web.Services
+@using JumpStart.Services
+@using Microsoft.AspNetCore.Authorization
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+@*@attribute [Authorize]*@
+<PageTitle>Image Types</PageTitle>
+
+<h1>Image Types</h1>
+
+@if (_entities == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div style="border-top:1px solid lightgrey;margin-bottom:3em">
+        <FluentToolbar Style="margin-top:0;padding-top:0">
+            <FluentButton Appearance="Appearance.Stealth" IconStart="@(new Icons.Regular.Size12.Add())"
+                          @onclick="@(() => OnAddEntityClick((e) => e.Name))" Title="Add an image type">Add Image Type</FluentButton>
+        </FluentToolbar>
+    </div>
+
+    <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
+    <FluentDataGrid Id="grid" TGridItem="ImageType" Items="@_entities" GridTemplateColumns="1fr 1fr 1fr 2fr">
+        <PropertyColumn Title="Name" Property="@(c => c.Name)" Align="Align.Start" />
+        <PropertyColumn Title="Sort Order" Property="@(c => c.SortOrder)" Align="Align.End" />
+        <TemplateColumn Title="Actions" Align="@Align.End">
+            <FluentButton aria-label="Decrease Sort Order" IconEnd="@(new Icons.Regular.Size16.ArrowUp())" @onclick="@(() => MoveUp(context))" />
+            <FluentButton aria-label="Increase Sort Order" IconEnd="@(new Icons.Regular.Size16.ArrowDown())" @onclick="@(() => MoveDown(context))" />
+            <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" @onclick="@(() => OnEditEntityClick(context, (e) => e.Name))" />
+            <FluentDeleteButton TItem="ImageType"
+                                Item="context"
+                                DataService="DataService"
+                                TitleResourceKey="Components_ImageType_List_DeleteTitle"
+                                TextResourceKey="Components_ImageType_List_DeleteText" />
+        </TemplateColumn>
+    </FluentDataGrid>
+}
+
+@code {
+    protected override async Task LoadEntities()
+    {
+        var results = await DataService.ListAsync(sortColumn: "SortOrder", sortAscending: true);
+        _entities = results.Data.AsQueryable();
+        StateHasChanged();
+    }
+
+    async Task MoveUp(ImageType imageType)
+    {
+        await Move(imageType, -1);
+    }
+
+    async Task MoveDown(ImageType imageType)
+    {
+        await Move(imageType, 1);
+    }
+
+    async Task Move(ImageType imageType, int direction)
+    {
+        int currentSortOrder = imageType.SortOrder;
+        // make sure to get an unpaged list
+        var entities = (await DataService.ListAsync(sortColumn:"SortOrder", sortAscending: true, limit:0)).Data;
+
+        int index = direction == -1 ? 0 : entities.Length - 1;
+
+        if (entities[index].Id == imageType.Id)
+            return;
+
+
+        for (int i = 0; i < entities.Length; i++)
+        {
+            int newSortOrder = i + 1;
+            if (i + direction >= 0 && i + direction <= entities.Length)
+            {
+                if (entities[i].Id == imageType.Id)
+                {
+                    // current entity set to the previous sort order
+                    var x = newSortOrder + direction;
+                    entities[i].SortOrder = x;
+                    // previous entity set to the current sort order
+                    x = newSortOrder;
+                    entities[i + direction].SortOrder = x;
+                    await DataService.UpdateAsync(entities[i + direction]);
+                    await DataService.UpdateAsync(entities[i]);
+                    break;
+                }
+            }
+        }
+        await LoadEntities();
+    }
+
+
+}

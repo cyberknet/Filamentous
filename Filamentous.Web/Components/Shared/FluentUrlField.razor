@@ -1,0 +1,33 @@
+﻿<FluentTextField Label="@Label" LabelTemplate="@LabelTemplate" TextFieldType="TextFieldType.Url" @bind-Value=UrlString>
+    <FluentIcon Value="@(new Icons.Regular.Size16.Globe())" Slot="start" Color="Color.Neutral" />
+</FluentTextField>
+@code {
+    [Parameter]
+    public Uri? Value { get; set; }
+    [Parameter]
+    public string Label { get; set; } = string.Empty;
+    [Parameter]
+    public EventCallback<Uri?> ValueChanged { get; set; }
+    [Parameter]
+    public RenderFragment? LabelTemplate { get; set; }
+
+    public string UrlString
+    {
+        get => Value?.ToString() ?? string.Empty;
+        set
+        {
+            if (value != (Value?.ToString() ?? string.Empty))
+            {
+                if (Uri.TryCreate(value, UriKind.Absolute, out var uri))
+                {
+                    Value = uri;
+                }
+                else
+                {
+                    Value = null;
+                }
+                ValueChanged.InvokeAsync(Value);
+            }
+        }
+    }
+}

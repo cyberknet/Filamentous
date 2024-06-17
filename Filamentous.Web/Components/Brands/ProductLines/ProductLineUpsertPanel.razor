@@ -1,0 +1,41 @@
+﻿@implements IDialogContentComponent<ProductLine>
+
+<FluentDialogBody>
+	<FluentStack Orientation="Orientation.Vertical">
+		<FluentTextField @bind-Value="@Content.Name">
+			<LabelTemplate>
+				<FluentLabel Weight="FontWeight.Bold">
+					<FluentStack Orientation="Orientation.Horizontal">
+						<span>Name</span>
+						<FluentLabel Color="Color.Error">*</FluentLabel>
+					</FluentStack>
+				</FluentLabel>
+			</LabelTemplate>
+		</FluentTextField>
+		<FluentSpacer Width="10" />
+		
+
+		@if (Content.Id != Guid.Empty)
+		{
+			<FluentSpacer Width="10" />
+			<FluentStack Orientation="Orientation.Vertical">
+				<FluentLabel Weight="FontWeight.Bold">Created</FluentLabel>
+				<FluentLabel>@Content.CreatedOn.ToString("dd-MM-yyyy")</FluentLabel>
+			</FluentStack>
+
+			@if (Content.UpdatedOn.HasValue)
+			{
+				<FluentSpacer Width="10" />
+				<FluentStack Orientation="Orientation.Vertical">
+					<FluentLabel Weight="FontWeight.Bold">Modified</FluentLabel>
+					<FluentLabel>@Content.UpdatedOn?.ToString("dd-MM-yyyy")</FluentLabel>
+				</FluentStack>
+			}
+		}
+	</FluentStack>
+</FluentDialogBody>
+
+@code {
+	[Parameter]
+	public ProductLine Content { get; set; } = default!;
+}

@@ -7,9 +7,14 @@ using Microsoft.EntityFrameworkCore;
 namespace Filamentous.Data;
 public class FilamentousDbContext : IdentityDbContext<IdentityUser>
 {
+    private FilamentousSeed _seed = new FilamentousSeed();
     public DbSet<Brand> Brands { get; set; }
     public DbSet<Polymer> Polymers { get; set; }
-    //public DbSet<ProductLine> ProductLines { get; set; }
+    public DbSet<ProductLine> ProductLines { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Spool> Spools { get; set; }
+    public DbSet<ImageType> ImageTypes { get; set; }
+    public DbSet<ProductImage> ProductImages { get; set; }
 
     public FilamentousDbContext(DbContextOptions<FilamentousDbContext> options) : base(options)
     {
@@ -31,7 +36,7 @@ public class FilamentousDbContext : IdentityDbContext<IdentityUser>
         builder.RegisterAuditEntityRelationships();
         builder.SetTableNamesToEntityNames();
 
-        FilamentousSeed.Seed(builder);
+        _seed.Seed(builder);
     }
 
 }

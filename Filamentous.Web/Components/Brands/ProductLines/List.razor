@@ -1,30 +1,40 @@
 ﻿@page "/brands/{BrandId:guid}/productlines"
+
+@inherits BaseListPage<IProductLineService, ProductLine, ProductLineUpsertPanel>
 @using Filamentous.Web.Services
 @using JumpStart.Services
 @using Microsoft.AspNetCore.Authorization
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 @inject IBrandService brandService;
-@inject IProductLineService productLineService
-@inject NavigationManager NavigationManager
-@inject IDialogService DialogService
 @*@attribute [Authorize]*@
-<PageTitle>Product Lines</PageTitle>
+<PageTitle>@brand?.Name Product Lines</PageTitle>
 
-<h1>Product Lines</h1>
+<h1>@brand?.Name Product Lines</h1>
 
-@if (productLines == null)
+@if (_entities == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+    <div style="border-top:1px solid lightgrey;margin-bottom:3em">
+        <FluentToolbar Style="margin-top:0;padding-top:0">
+            <FluentButton Appearance="Appearance.Stealth" IconStart="@(new Icons.Regular.Size12.Add())"
+                          @onclick="@(() => OnAddEntityClick((e) => e.Name))" Title="Add a brand">Add Brand</FluentButton>
+        </FluentToolbar>
+    </div>
+
     <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
-    <FluentDataGrid Id="productlinegrid" Items="@productLines" GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem="ProductLine">
-        <PropertyColumn Title="Name" Property="@(c => c.Name)" Align="Align.Start"/>
+    <FluentDataGrid Id="grid" TGridItem="ProductLine" Items="@_entities" GridTemplateColumns="1fr 1fr 1fr 2fr">
+        <PropertyColumn Title="Name" Property="@(c => c.Name)" Align="Align.Start" />
         <TemplateColumn Title="Actions" Align="@Align.End">
-            <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" @onclick="@(() => Edit(context))" />
-            <FluentButton aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" @onclick="@(() => Delete(context))" />
+            <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" @onclick="@(() => OnEditEntityClick(context, (e) => e.Name))" />
+            <FluentDeleteButton TItem="ProductLine"
+                                Item="context"
+                                DataService="DataService"
+                                TitleResourceKey="Components_Brands_List_DeleteTitle"
+                                TextResourceKey="Components_Brands_List_DeleteText" />
         </TemplateColumn>
     </FluentDataGrid>
 }
@@ -34,56 +44,19 @@ else
     public Guid? BrandId { get; set; }
     private Brand? brand;
 
-    private IQueryable<ProductLine>? productLines;
-
-    string message = string.Empty;
-    private int currentCount = 0;
-
-    protected override async Task OnInitializedAsync()
+    // override LoadEntities so that we only pull the ProductLine entities for the current brand
+    protected override async Task LoadEntities()
     {
-        try
+        if (brand == null)
         {
             if (BrandId != null)
             {
                 brand = await brandService.GetAsync(BrandId.Value);
+                if (brand != null)
+                    _entities = brand.ProductLines.AsQueryable();
             }
-            var result = await productLineService.ListAsync();
-            productLines = result.Data.AsQueryable();
-        }
-        catch(Exception ex)
-        {
-            string message = ex.Message;
-        }
-    }
 
-    void Edit(ProductLine productLine) 
-    {
-        string url = $"/brands/productLines/{productLine.Id}";
-        NavigationManager.NavigateTo(url);
-    }
-
-    async Task Delete(ProductLine productLine)
-    {
-        var text = $"Are you sure you want to delete {productLine.Name}?";
-        DialogParameters parameters = new()
-        {
-            Title = "Delete Product Line?",
-            PrimaryAction = "Yes",
-            PrimaryActionEnabled = true,
-            SecondaryAction = "No",
-            Width = "500px",
-            TrapFocus = true,
-            Modal = true,
-            PreventScroll = true
-        };
-        RenderFragment body =@<div>@text</div>;
-
-        IDialogReference dialog = await DialogService.ShowDialogAsync(body, parameters);
-        DialogResult? result = await dialog.Result;
-
-        if (!result.Cancelled)
-        {
-            var deleteResult = await productLineService.DeleteAsync(productLine.Id);
+            StateHasChanged();
         }
     }
 }

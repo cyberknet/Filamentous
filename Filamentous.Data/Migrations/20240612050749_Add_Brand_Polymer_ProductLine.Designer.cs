@@ -4,6 +4,7 @@ using Filamentous.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Filamentous.Migrations
 {
     [DbContext(typeof(FilamentousDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240612050749_Add_Brand_Polymer_ProductLine")]
+    partial class Add_Brand_Polymer_ProductLine
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,11 +61,11 @@ namespace Filamentous.Migrations
 
                     b.Property<string>("ProductUrlTemplate")
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(20);
+                        .HasColumnOrder(10);
 
                     b.Property<string>("SpoolUrlTemplate")
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(21);
+                        .HasColumnOrder(11);
 
                     b.Property<string>("UpdatedById")
                         .HasColumnType("nvarchar(450)")
@@ -74,7 +77,7 @@ namespace Filamentous.Migrations
 
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(10);
+                        .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
@@ -104,101 +107,6 @@ namespace Filamentous.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Prusament",
                             Url = "https://prusa3d.com/"
-                        });
-                });
-
-            modelBuilder.Entity("Filamentous.Data.Entities.ImageType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(0);
-
-                    b.Property<Guid>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(99);
-
-                    b.Property<string>("CreatedById")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(100);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(101);
-
-                    b.Property<string>("DeletedById")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(104);
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(105);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(1);
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("int")
-                        .HasColumnOrder(10);
-
-                    b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(102);
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(103);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("DeletedById");
-
-                    b.HasIndex("UpdatedById");
-
-                    b.ToTable("ImageType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("d9a3f45c-81ae-4b86-b477-030000000001"),
-                            ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-030000000001"),
-                            CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Swatch",
-                            SortOrder = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
-                            ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
-                            CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Swatch (Alternate)",
-                            SortOrder = 2
-                        },
-                        new
-                        {
-                            Id = new Guid("d9a3f45c-81ae-4b86-b477-030000000003"),
-                            ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-030000000003"),
-                            CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Spool",
-                            SortOrder = 3
-                        },
-                        new
-                        {
-                            Id = new Guid("d9a3f45c-81ae-4b86-b477-030000000004"),
-                            ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-030000000004"),
-                            CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Sample Print",
-                            SortOrder = 4
                         });
                 });
 
@@ -433,173 +341,6 @@ namespace Filamentous.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Filamentous.Data.Entities.Product", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(0);
-
-                    b.Property<string>("ColorCode")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(30);
-
-                    b.Property<Guid>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(99);
-
-                    b.Property<string>("CreatedById")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(100);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(101);
-
-                    b.Property<string>("DeletedById")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(104);
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(105);
-
-                    b.Property<bool?>("Discontinued")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(50);
-
-                    b.Property<string>("FilamentXyzUrl")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(13);
-
-                    b.Property<int?>("GradientCycleLength")
-                        .HasColumnType("int")
-                        .HasColumnOrder(32);
-
-                    b.Property<bool>("IsGradient")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(31);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(1);
-
-                    b.Property<decimal>("Price")
-                        .HasPrecision(14, 2)
-                        .HasColumnType("decimal(14,2)")
-                        .HasColumnOrder(40);
-
-                    b.Property<Guid>("ProductLineId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ProductUrl")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(12);
-
-                    b.Property<int>("ProductWeight")
-                        .HasColumnType("int")
-                        .HasColumnOrder(20);
-
-                    b.Property<string>("SKU")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(10);
-
-                    b.Property<int>("SpoolWeight")
-                        .HasColumnType("int")
-                        .HasColumnOrder(21);
-
-                    b.Property<string>("UPC")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(11);
-
-                    b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(102);
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(103);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("DeletedById");
-
-                    b.HasIndex("ProductLineId");
-
-                    b.HasIndex("UpdatedById");
-
-                    b.ToTable("Product");
-                });
-
-            modelBuilder.Entity("Filamentous.Data.Entities.ProductImage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(0);
-
-                    b.Property<Guid>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(99);
-
-                    b.Property<string>("CreatedById")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(100);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(101);
-
-                    b.Property<string>("DeletedById")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(104);
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(105);
-
-                    b.Property<string>("Filename")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)")
-                        .HasColumnOrder(20);
-
-                    b.Property<Guid>("ImageTypeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(102);
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(103);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("DeletedById");
-
-                    b.HasIndex("ImageTypeId");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UpdatedById");
-
-                    b.ToTable("ProductImage");
-                });
-
             modelBuilder.Entity("Filamentous.Data.Entities.ProductLine", b =>
                 {
                     b.Property<Guid>("Id")
@@ -607,11 +348,7 @@ namespace Filamentous.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(0);
 
-                    b.Property<int>("BedTemperature")
-                        .HasColumnType("int")
-                        .HasColumnOrder(22);
-
-                    b.Property<Guid>("BrandId")
+                    b.Property<Guid?>("BrandId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ConcurrencyStamp")
@@ -635,14 +372,6 @@ namespace Filamentous.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2")
                         .HasColumnOrder(105);
-
-                    b.Property<int>("HotEndTemperature")
-                        .HasColumnType("int")
-                        .HasColumnOrder(21);
-
-                    b.Property<bool>("IsAbrasive")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(20);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -678,900 +407,561 @@ namespace Filamentous.Migrations
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000001"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000001"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "PolyLite PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000002"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000002"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "PolyLite Silk PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000003"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000003"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "PolyLite Dual Silk PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000004"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000004"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "PolyLite Galaxy PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000005"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000005"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "PolyLite Starlight PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000006"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000006"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "PolyLite Luminous PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000007"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000007"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = true,
                             Name = "PolyLite Glow PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000008"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000008"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = true,
                             Name = "PolyLite Temperature Color Changing PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000009"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000009"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = true,
                             Name = "PolyLite UV Color Changing PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000000a"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000000a"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = true,
                             Name = "PolyTerra Matte PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000000b"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000000b"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = true,
                             Name = "PolyTerra Dual Matte PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000000c"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000000c"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = true,
                             Name = "PolyTerra Gradient Matte PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000000d"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000000d"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = true,
                             Name = "PolyTerra Dual Gradient Matte PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000000e"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000000e"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = true,
                             Name = "PolyTerra Marble PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000000f"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000000f"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = true,
                             Name = "PolyTerra Satin PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000010"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000010"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 220,
-                            IsAbrasive = false,
                             Name = "PolySonic PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000011"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000011"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 220,
-                            IsAbrasive = false,
                             Name = "PolySonic PLA Pro",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000012"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000012"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "PolyLite PLA Pro",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000013"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000013"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "PolyLite Metallic PLA Pro",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000014"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000014"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "PolyMax PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000015"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000015"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "Seasonal Packs PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000016"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000016"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "PolyLite CosPLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000017"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000017"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 200,
-                            IsAbrasive = false,
                             Name = "Light Weight PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000018"),
-                            BedTemperature = 70,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000018"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 220,
-                            IsAbrasive = true,
                             Name = "Carbon Fiber PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000019"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000019"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 200,
-                            IsAbrasive = true,
                             Name = "PolyWood PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000001a"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000001a"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "Draft PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000001b"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000001b"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
-                            Name = "Matte PLA for Production",
+                            Name = "Matte PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000001c"),
-                            BedTemperature = 110,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000001c"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 255,
-                            IsAbrasive = false,
                             Name = "PolyLite ABS",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000004")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000001d"),
-                            BedTemperature = 110,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000001d"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 255,
-                            IsAbrasive = false,
                             Name = "PolyLite Metallic ABS",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000004")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000001e"),
-                            BedTemperature = 110,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000001e"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 255,
-                            IsAbrasive = false,
                             Name = "PolyLite Galaxy ABS",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000004")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000001f"),
-                            BedTemperature = 110,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000001f"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 255,
-                            IsAbrasive = false,
                             Name = "PolyLite Neon ABS",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000004")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000020"),
-                            BedTemperature = 110,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000020"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 260,
-                            IsAbrasive = false,
                             Name = "PolyLite ASA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000003")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000021"),
-                            BedTemperature = 110,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000021"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 260,
-                            IsAbrasive = false,
                             Name = "PolyLite Galaxy ASA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000003")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000022"),
-                            BedTemperature = 90,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000022"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 240,
-                            IsAbrasive = false,
                             Name = "PolyLite PETG",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000002")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000023"),
-                            BedTemperature = 90,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000023"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 240,
-                            IsAbrasive = false,
                             Name = "PolyLite Translucent PETG",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000002")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000024"),
-                            BedTemperature = 90,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000024"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 240,
-                            IsAbrasive = false,
                             Name = "PolyMax PETG",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000002")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000025"),
-                            BedTemperature = 90,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000025"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 240,
-                            IsAbrasive = false,
                             Name = "PolyMax PETG-ESD",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000002")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000026"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000026"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 220,
-                            IsAbrasive = false,
                             Name = "PolyMax TPU90",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000005")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000027"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000027"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 220,
-                            IsAbrasive = false,
                             Name = "PolyMax TPU95",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000005")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000028"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000028"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 210,
-                            IsAbrasive = false,
                             Name = "PolyMax TPU95-HF",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000005")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000029"),
-                            BedTemperature = 105,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000029"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 260,
-                            IsAbrasive = false,
                             Name = "PolyLite PC",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000006")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000002a"),
-                            BedTemperature = 105,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000002a"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 260,
-                            IsAbrasive = false,
                             Name = "PolyMax PC",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000006")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000002b"),
-                            BedTemperature = 105,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000002b"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 260,
-                            IsAbrasive = false,
                             Name = "PolyMaxPC-FR",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000006")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000002c"),
-                            BedTemperature = 105,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000002c"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 260,
-                            IsAbrasive = false,
                             Name = "PolyMax PC-ABS",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000006")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000002d"),
-                            BedTemperature = 115,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000002d"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 270,
-                            IsAbrasive = false,
                             Name = "PolyMax PC-PBT",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000006")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000002e"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000002e"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 260,
-                            IsAbrasive = false,
                             Name = "PolyMide CoPA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000008")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000002f"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000002f"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 290,
-                            IsAbrasive = true,
                             Name = "PolyMide PA-6GF",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-04000000000a")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000030"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000030"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 290,
-                            IsAbrasive = true,
                             Name = "PolyMide PA6-CF",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000009")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000031"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000031"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 275,
-                            IsAbrasive = true,
                             Name = "PolyMide PA612-CF",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000009")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000032"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000032"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 275,
-                            IsAbrasive = true,
                             Name = "PolyMide PA12-CF",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-04000000000b")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000033"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000033"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 205,
-                            IsAbrasive = false,
                             Name = "PolySmooth",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000007")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000034"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000034"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 205,
-                            IsAbrasive = false,
                             Name = "PolyCast",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-04000000000d")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000035"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000035"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 225,
-                            IsAbrasive = false,
                             Name = "PolySupport for PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000015")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000036"),
-                            BedTemperature = 80,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000036"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 285,
-                            IsAbrasive = false,
                             Name = "PolySupport for PA12",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000015")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000037"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000002"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000037"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 220,
-                            IsAbrasive = false,
                             Name = "PolyDissolve",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-04000000000c")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000038"),
-                            BedTemperature = 60,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000001"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000038"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "Prusament PLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000039"),
-                            BedTemperature = 50,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000001"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000039"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 205,
-                            IsAbrasive = false,
                             Name = "Prusament rPLA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000001")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000003a"),
-                            BedTemperature = 80,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000001"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000003a"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 250,
-                            IsAbrasive = false,
                             Name = "Prusament PETG",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000002")
                         },
                         new
                         {
-                            Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000003f"),
-                            BedTemperature = 90,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000001"),
-                            ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000003f"),
-                            CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 265,
-                            IsAbrasive = true,
-                            Name = "Prusament PETG-CF",
-                            PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000002")
-                        },
-                        new
-                        {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000003b"),
-                            BedTemperature = 110,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000001"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000003b"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 275,
-                            IsAbrasive = false,
-                            Name = "Prusament PC Blend",
-                            PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000006")
-                        },
-                        new
-                        {
-                            Id = new Guid("d9a3f45c-81ae-4b86-b477-050000000040"),
-                            BedTemperature = 110,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000001"),
-                            ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-050000000040"),
-                            CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 285,
-                            IsAbrasive = true,
                             Name = "Prusament PC Blend",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000006")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000003c"),
-                            BedTemperature = 75,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000001"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000003c"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 215,
-                            IsAbrasive = false,
                             Name = "Prusament PVB",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000007")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000003d"),
-                            BedTemperature = 110,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000001"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000003d"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 260,
-                            IsAbrasive = false,
                             Name = "Prusament ASA",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000003")
                         },
                         new
                         {
                             Id = new Guid("d9a3f45c-81ae-4b86-b477-05000000003e"),
-                            BedTemperature = 110,
-                            BrandId = new Guid("d9a3f45c-81ae-4b86-b477-030000000001"),
                             ConcurrencyStamp = new Guid("d9a3f45c-81ae-4b86-b477-05000000003e"),
                             CreatedById = "d9a3f45c-81ae-4b86-b477-020000000001",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotEndTemperature = 285,
-                            IsAbrasive = true,
                             Name = "Prusament PA11 Carbon Fiber",
                             PolymerId = new Guid("d9a3f45c-81ae-4b86-b477-040000000016")
                         });
-                });
-
-            modelBuilder.Entity("Filamentous.Data.Entities.Spool", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(0);
-
-                    b.Property<Guid>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(99);
-
-                    b.Property<string>("CreatedById")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(100);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(101);
-
-                    b.Property<int>("CurrentWeight")
-                        .HasColumnType("int")
-                        .HasColumnOrder(11);
-
-                    b.Property<string>("DeletedById")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(104);
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(105);
-
-                    b.Property<int>("InitialWeight")
-                        .HasColumnType("int")
-                        .HasColumnOrder(10);
-
-                    b.Property<string>("ManufacturerSerial")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(3);
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(102);
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(103);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("DeletedById");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UpdatedById");
-
-                    b.ToTable("Spool");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1712,7 +1102,7 @@ namespace Filamentous.Migrations
                             NormalizedUserName = "SCOTT@BLOMFIELD.US",
                             PasswordHash = "AQAAAAIAAYagAAAAEBm+qE3vZ4hlMjyrKVdyjEtTZqnU/1XXi/Sh2ycOqU8PkBxc8e5VLe//Lw/iO9dslw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "47e36abe-3b8a-4b74-a1eb-67a9c9d3ca0c",
+                            SecurityStamp = "382c8396-2609-40f8-a4fc-7753e58d0ca1",
                             TwoFactorEnabled = false,
                             UserName = "scott@blomfield.us"
                         });
@@ -1824,31 +1214,6 @@ namespace Filamentous.Migrations
                     b.Navigation("UpdatedBy");
                 });
 
-            modelBuilder.Entity("Filamentous.Data.Entities.ImageType", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "DeletedBy")
-                        .WithMany()
-                        .HasForeignKey("DeletedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("DeletedBy");
-
-                    b.Navigation("UpdatedBy");
-                });
-
             modelBuilder.Entity("Filamentous.Data.Entities.Polymer", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
@@ -1874,87 +1239,11 @@ namespace Filamentous.Migrations
                     b.Navigation("UpdatedBy");
                 });
 
-            modelBuilder.Entity("Filamentous.Data.Entities.Product", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "DeletedBy")
-                        .WithMany()
-                        .HasForeignKey("DeletedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Filamentous.Data.Entities.ProductLine", "ProductLine")
-                        .WithMany()
-                        .HasForeignKey("ProductLineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("DeletedBy");
-
-                    b.Navigation("ProductLine");
-
-                    b.Navigation("UpdatedBy");
-                });
-
-            modelBuilder.Entity("Filamentous.Data.Entities.ProductImage", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "DeletedBy")
-                        .WithMany()
-                        .HasForeignKey("DeletedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Filamentous.Data.Entities.ImageType", "ImageType")
-                        .WithMany()
-                        .HasForeignKey("ImageTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Filamentous.Data.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("DeletedBy");
-
-                    b.Navigation("ImageType");
-
-                    b.Navigation("Product");
-
-                    b.Navigation("UpdatedBy");
-                });
-
             modelBuilder.Entity("Filamentous.Data.Entities.ProductLine", b =>
                 {
-                    b.HasOne("Filamentous.Data.Entities.Brand", "Brand")
+                    b.HasOne("Filamentous.Data.Entities.Brand", null)
                         .WithMany("ProductLines")
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BrandId");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
                         .WithMany()
@@ -1978,46 +1267,11 @@ namespace Filamentous.Migrations
                         .HasForeignKey("UpdatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("Brand");
-
                     b.Navigation("CreatedBy");
 
                     b.Navigation("DeletedBy");
 
                     b.Navigation("Polymer");
-
-                    b.Navigation("UpdatedBy");
-                });
-
-            modelBuilder.Entity("Filamentous.Data.Entities.Spool", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "DeletedBy")
-                        .WithMany()
-                        .HasForeignKey("DeletedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Filamentous.Data.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("DeletedBy");
-
-                    b.Navigation("Product");
 
                     b.Navigation("UpdatedBy");
                 });

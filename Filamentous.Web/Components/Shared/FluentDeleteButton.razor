@@ -1,0 +1,67 @@
+﻿@using JumpStart.Data.Entities
+@using JumpStart.Data.Entities.Base
+@using JumpStart.Services
+@inject IDialogService DialogService
+@inject IStringLocalizer<SharedResources> Localizer
+@typeparam TItem where TItem : Entity, INamedEntity
+<FluentButton aria-label="Delete" BackgroundColor="var(--danger-bg, #ff0000)" @onclick="@(() => Delete())">
+    <FluentIcon Value="@(new Icons.Filled.Size16.Delete())" Color="Color.Fill" />
+</FluentButton>
+
+@code {
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public IDataService<TItem> DataService { get; set; } = null!;
+
+    [Parameter]
+    public TItem Item { get; set; } = null!;
+
+    [Parameter]
+    public string TitleResourceKey { get; set; } = null!;
+
+    [Parameter]
+    public string TextResourceKey { get; set; } = null!;
+
+    async Task Delete()
+    {
+        string title = GetResourceString(TitleResourceKey);
+        string text = GetResourceString(TextResourceKey, Item.Name);
+
+        DialogParameters parameters = new()
+            {
+                Title = title,
+                PrimaryAction = "Yes",
+                PrimaryActionEnabled = true,
+                SecondaryAction = "No",
+                Width = "500px",
+                TrapFocus = true,
+                Modal = true,
+                PreventScroll = true
+            };
+        RenderFragment body =@<div>@text</div>;
+
+        IDialogReference dialog = await DialogService.ShowDialogAsync(body, parameters);
+        DialogResult? result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            var deleteResult = await DataService.DeleteAsync(Item.Id);
+        }
+    }
+
+    private string GetResourceString(string resourceKey, params object[] args)
+    {
+        // try to get the localized string
+        var localized = Localizer[resourceKey];
+        string formatString = resourceKey;
+        // check to see if the localized was found
+        if (localized != null && !localized.ResourceNotFound && !string.IsNullOrWhiteSpace(localized.Value))
+            // take the localized string into the format string
+            formatString = localized.Value;
+
+        // use the localized format string
+        return string.Format(formatString, args);
+    }
+}

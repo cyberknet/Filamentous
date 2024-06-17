@@ -5,5 +5,5 @@ namespace JumpStart.Services;
 
 public interface IAuditDataService<TEntity> : IDataService<TEntity> where TEntity : AuditEntity
 {
-    Task<PagedResponse<TEntity>> ListAsync(bool includeDeleted);
+    Task<PagedResponse<TEntity>> ListAsync(bool includeDeleted, string sortColumn = "", bool sortAscending = true, int limit = 20, int offset = 0);
 }

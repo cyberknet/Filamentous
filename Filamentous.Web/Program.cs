@@ -24,6 +24,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// Fluent UI additions
 builder.Services.AddHttpClient();
 builder.Services.AddFluentUIComponents();
 
@@ -57,10 +59,6 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title="Filamentous Api", Version="v1" });
 });
-
-
-builder.Services.AddScoped<IBrandService, BrandService>();
-builder.Services.AddScoped<IPolymerService, PolymerService>();
 
 
 builder.Services.AddJumpStart("https://localhost:1234/", "https://localhost:1234", "super-secret-key");

@@ -153,4 +153,13 @@
   <data name="Components_Layout_NavMenu_Register" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="Components_Layout_NavMenu_ImageTypes" xml:space="preserve">
+    <value>Image Types</value>
+  </data>
+  <data name="Components_Polymers_List_DeleteTitle" xml:space="preserve">
+    <value>Delete Polymer?</value>
+  </data>
+  <data name="Components_Polymers_List_DeleteText" xml:space="preserve">
+    <value>Are you sure you want to delete the polymer named {0}?</value>
+  </data>
 </root>

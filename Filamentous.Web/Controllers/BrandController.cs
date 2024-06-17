@@ -6,6 +6,7 @@ using JumpStart.Data.Entities;
 using JumpStart.Data.Entities.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,6 +24,9 @@ public class BrandController : JumpstartAuditController<Brand>
 
     protected override IQueryable<Brand> AddIncludes(IQueryable<Brand> query)
     {
+        query = query.Include(b => b.ProductLines)
+            .ThenInclude(pl => pl.Polymer);
+            
         return base.AddIncludes(query, true);
     }
 

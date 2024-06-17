@@ -13,18 +13,17 @@ using Microsoft.EntityFrameworkCore;
 namespace Filamentous.Web.Controllers;
 [Route("api/[controller]")]
 //[Authorize]
-public class ProductLineController : JumpstartAuditController<ProductLine>
+public class ImageTypeController : JumpstartAuditController<ImageType>
 { 
-	public ProductLineController(FilamentousDbContext context) : base(context) { }
+	public ImageTypeController(FilamentousDbContext context) : base(context) { }
 
-    protected override IQueryable<ProductLine> ApplyAccessRestrictions(IQueryable<ProductLine> query)
+    protected override IQueryable<ImageType> ApplyAccessRestrictions(IQueryable<ImageType> query)
     {
         return query;
     }
 
-    protected override IQueryable<ProductLine> AddIncludes(IQueryable<ProductLine> query)
+    protected override IQueryable<ImageType> AddIncludes(IQueryable<ImageType> query)
     {
-        query = query.Include(e => e.Polymer);
         return base.AddIncludes(query, true);
     }
 

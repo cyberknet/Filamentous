@@ -21,7 +21,7 @@ public abstract class AuditDataService<TEntity> : DataService<TEntity>, IAuditDa
     }
 
     #region Asynchronous Methods
-    public async Task<PagedResponse<TEntity>> ListAsync(bool includeDeleted)
+    public async Task<PagedResponse<TEntity>> ListAsync(bool includeDeleted, string sortColumn = "", bool sortAscending = true, int limit = 20, int offset = 0)
     {
         try
         {
@@ -31,6 +31,11 @@ public abstract class AuditDataService<TEntity> : DataService<TEntity>, IAuditDa
             {
                 request.AddParameter("includeDeleted", true);
             }
+            if (limit > 0)
+                request.AddParameter("limit", limit);
+            if (offset > 0)
+                request.AddParameter("offset", offset);
+
             var response = await Client.ExecuteAsync<PagedResponse<TEntity>>(request);
 
             if (response != null && response.StatusCode == HttpStatusCode.OK && response.Data != null)
@@ -47,9 +52,9 @@ public abstract class AuditDataService<TEntity> : DataService<TEntity>, IAuditDa
         }
     }
 
-    public override async Task<PagedResponse<TEntity>> ListAsync()
+    public override async Task<PagedResponse<TEntity>> ListAsync(string orderByColumn = "", bool orderAscending = true, int limit = 20, int offset = 0)
     {
-        return await ListAsync(false);
+        return await ListAsync(includeDeleted: false, limit: limit, offset: offset);
     }
     #endregion
 
